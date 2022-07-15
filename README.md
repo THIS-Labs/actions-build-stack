@@ -1,2 +1,2 @@
 # actions-build-stack
-GitHub action to build a thiscovery stack
+Composite GitHub action to build a thiscovery stack in CI/CD pipelines
