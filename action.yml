@@ -1,11 +1,16 @@
 name: 'Build thiscovery'
 description: 'Builds thiscovery stack using test account credentials'
+inputs:
+  python-version:
+    description: 'Python version to be installed'
+    required: false
+    default: '3.13'
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-python@v5
+    - uses: actions/setup-python@v6
       with:
-        python-version: '3.8'
+        python-version: ${{ inputs.python-version }}
     - uses: aws-actions/setup-sam@v2
 
     - name: Install dependencies
@@ -14,7 +19,7 @@ runs:
         pip install -r requirements.txt
 
     - name: Assume the deployment pipeline user role in testing account
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@v5
       with:
         aws-access-key-id: ${{ env.PIPELINE_USER_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ env.PIPELINE_USER_SECRET_ACCESS_KEY }}
